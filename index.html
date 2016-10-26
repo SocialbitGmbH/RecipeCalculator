@@ -55,8 +55,8 @@
      <br>
      <div class="row">
        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-         <table>
-           <tr>
+        <table>
+          <tr>
              <th>
                <p class="input text">
                  Zutat
@@ -75,24 +75,24 @@
              <th>
                <button ng-click="removeAll()" class="input button">-</button>
              </th>
-           </tr>
-             <tr ng-repeat="foo in form.foo">
-               <form>
-                 <td>
-                   <p class="input text">{{foo.name}}</p>
-                 </td>
-                 <td>
-                   <input min="0" ng-model="foo.value" ng-change="changeValue(foo)" type="number" placeholder="Menge" class="input text">
-                 </td>
-                 <td>
-                   <p class="input dropwdown">{{foo.unit}}</p>
-                 </td>
-                 <td>
-                   <input ng-click="remove(foo)" type="button" value="-" class="input button">
-                 </td>
-               </form>
-             </tr>
-         </table>
+          </tr>
+          <tr ng-repeat="foo in form.foo">
+           <form>
+             <td>
+               <p class="input text">{{foo.name}}</p>
+             </td>
+             <td>
+               <input min="0" ng-model="foo.value" ng-change="changeValue(foo)" type="number" placeholder="Menge" class="input text">
+             </td>
+             <td>
+               <p class="input dropwdown">{{foo.unit}}</p>
+             </td>
+             <td>
+               <input ng-click="remove(foo)" type="button" value="-" class="input button">
+             </td>
+           </form>
+          </tr>
+        </table>
        </div>
      </div>
     </div>
