@@ -1,0 +1,49 @@
+// main: ./styles.less
+
+@import "variables.less";
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr {
+    border-bottom: 1px solid @grey;
+}
+
+td {
+    height: 30px;
+    width: 45px;
+}
+
+th,td {
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: @grey;
+}
+
+.input {
+  padding: 8px;
+  margin: auto;
+  display: block;
+  border: solid 2px @lightGrey;
+  background-color: @darkWhite!important;
+  text-align: center;
+  -webkit-box-shadow: 0 0 0px 1000px @darkWhite inset;
+  -moz-box-shadow: 0 0 0px 1000px @darkWhite inset;
+  box-shadow: 0 0 0px 1000px @darkWhite inset;
+}
+
+.text {
+  width: 150px;
+}
+
+.button {
+  width: 35px;
+}
+
+.dropdown {
+  width: 120px;
+}

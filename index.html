@@ -1,0 +1,97 @@
+<html ng-app="rezeptrechner">
+  <head>
+    <title>Rezeptrechner</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="http://code.jquery.com/jquery-3.1.1.slim.min.js"   integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="angular.min.js"></script>
+    <script src="mainController.js"></script>
+  </head>
+  <body ng-controller="mainController">
+    <div class="container">
+     <div class="row">
+       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+         <table>
+           <tr>
+             <form>
+               <td>
+                 <input ng-model="new.name" type="text" class="input text" placeholder="Zutat">
+               </td>
+               <td>
+                 <input ng-model="new.value" min="0" type="number" class="input text" placeholder="Menge">
+               </td>
+               <td>
+                 <select ng-model="new.unit" class="input dropdown">
+                   <option value="Gramm">Gramm</option>
+                   <option value="Kilogramm">Kilogramm</option>
+                   <option value="Milliliter">Milliliter</option>
+                   <option value="Liter">Liter</option>
+                   <option value="Stück">Stück</option>
+                   <option value="Esslöffel">Esslöffel</option>
+                   <option value="Teelöffel">Teelöffel</option>
+                   <option value="Becher">Becher</option>
+                 </select>
+               </td>
+               <td>
+                 <input ng-click="addIngredient()" value="+" type="submit" class="input button">
+               </td>
+             </form>
+           </tr>
+         </table>
+       </div>
+     </div>
+     <div class="row"><br><br></div>
+     <div class="row">
+       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+         <table>
+           <tr>
+             <th>
+               <p class="input text">
+                 Zutat
+               </p>
+             </th>
+             <th>
+               <p class="input text">
+                 Menge
+               </p>
+             </th>
+             <th>
+               <p class="input dropdown">
+                 Einheit
+               </p>
+             </th>
+             <th>
+               <button ng-click="removeAll()" class="input button">-</button>
+             </th>
+             <th>
+               <button ng-click="share()" class="input">Share</button>
+             </th>
+           </tr>
+             <tr ng-repeat="foo in form.foo">
+               <form>
+                 <td>
+                   <p class="input text">{{foo.name}}</p>
+                 </td>
+                 <td>
+                   <input min="0" ng-model="foo.value" ng-change="changeValue(foo)" type="number" placeholder="Menge" class="input text">
+                 </td>
+                 <td>
+                   <p class="input dropwdown">{{foo.unit}}</p>
+                 </td>
+                 <td>
+                   <input ng-click="remove(foo)" type="button" value="-" class="input button">
+                 </td>
+                 <td>
+                   
+                 </td>
+               </form>
+             </tr>
+         </table>
+       </div>
+     </div>
+    </div>
+  </body>
+</html>
