@@ -1,7 +1,7 @@
 var rezeptrechner = angular.module("rezeptrechner", []);
 
 rezeptrechner.controller("mainController", ['$scope', '$http', function($scope, $http) {
-  console.log("Loaded");
+  console.log("Loading..");
 
 //----<<< Variables >>>----\\
 
@@ -112,5 +112,9 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
       $scope.form.foo.push(x);
     }
   }
+
+  document.getElementById("mainView").style = "";   // Fixing flickering on pageload
+
+  console.log("Loaded!");
 
 }]);
