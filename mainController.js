@@ -17,6 +17,8 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
     foo: []
   };
 
+  $scope.name = "";
+
   $scope.factor = 1;
 
 //----<<< Functions >>>----\\
@@ -90,7 +92,11 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
   $scope.share = function () {            // Share the recipe with the world
     console.log("Share");
     if ($scope.form.foo.length > 0) {
-      var data = encodeURL(Base64.encode(JSON.stringify($scope.form.foo)));
+      var dataArray = {
+        'name' : $scope.name,
+        'data' : $scope.form.foo
+      };
+      var data = encodeURL(Base64.encode(JSON.stringify(dataArray)));
       window.open("http://"+window.location.hostname+"/#"+data);
     } else {
       alert("Nichts zum Teilen :/");
@@ -100,8 +106,9 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
   if (window.location.hash !== "") {
     console.log("Shared Data");
     var data = Base64.decode(decodeUrl(window.location.hash));
-    data = JSON.parse(data.substring(0, data.length - 1));
-    for (var x of data) {
+    dataAll = JSON.parse(data.substring(0, data.length - 1));
+    $scope.name = dataAll["name"]
+    for (var x of dataAll["data"]) {
       $scope.form.foo.push(x);
     }
   }

@@ -43,7 +43,14 @@
          </table>
        </div>
      </div>
-     <div class="row"><br><br></div>
+     <div class="row">
+      <div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        <input ng-model="name" type="text" class="input text" placeholder="Rezept">
+      </div>
+      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <button ng-click="share()" class="input">Share</button>
+      </div>
+     </div>
      <div class="row">
        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
          <table>
@@ -66,9 +73,6 @@
              <th>
                <button ng-click="removeAll()" class="input button">-</button>
              </th>
-             <th>
-               <button ng-click="share()" class="input">Share</button>
-             </th>
            </tr>
              <tr ng-repeat="foo in form.foo">
                <form>
@@ -83,9 +87,6 @@
                  </td>
                  <td>
                    <input ng-click="remove(foo)" type="button" value="-" class="input button">
-                 </td>
-                 <td>
-                   
                  </td>
                </form>
              </tr>
