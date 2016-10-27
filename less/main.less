@@ -28,12 +28,20 @@ textarea {
 
 //----<<< Table + Divs >>>----\\
 
+.th {
+  padding-right: 17px;
+  padding-top: 7px;
+  margin-top: 7px;
+  border-top: solid 2px @lightGrey;
+  font-weight: bold;
+}
+
 .table-row {
   height: auto;
 }
 
 .data {
-  margin-top:-20px;
+  margin-top:10px
 }
 
 .td {
@@ -49,6 +57,10 @@ textarea {
     background-color: @darkWhite;
 }
 
+#data-rows:last-child {
+  border-bottom: none;
+}
+
 #data-rows {
   padding-right:15px;
   border-bottom: solid 1px @darkGrey;
@@ -56,20 +68,22 @@ textarea {
 
 .add-data {
   border-top: solid 1px @darkGrey;
+  height: auto;
+  overflow: hidden;
   margin-top: -20px;
   padding-top: 10px;
-  padding-right: 15px;
+  padding-right: 17px;
 }
 
 //----<<< Container >>>----\\
 
 .recipe-container {
-  //max-height: 500px;
   height: 500px;
   background-color: @grey;
   background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
   overflow-y: scroll;
   overflow-x: hidden;
+  border-top: solid 1px @lightGrey;
   margin-right: -15px;
   padding-left: 16px;
 }
@@ -78,7 +92,7 @@ textarea {
   overflow-x:auto;
   height:auto;
   padding-top: 20px;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   border-right: solid 2px @lightGrey;
   border-bottom: solid 2px @lightGrey;
 }
@@ -116,7 +130,8 @@ textarea {
 
 .input {
   padding: 8px;
-  margin: auto;
+  //margin: auto;
+  display: block;
   width: 100%;
   display: block;
   border: solid 2px @lightGrey;

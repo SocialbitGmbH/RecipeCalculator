@@ -25,7 +25,7 @@
                <button ng-click="share()" class="input">Share</button>
              </div>
              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top:5px;">
-               <div class="row table">
+               <div class="row th">
                  <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 td">
                    <p class="input">
                      Zutat
@@ -47,7 +47,7 @@
                </div>
                <div class="row">
                  <div class="recipe-container table data">
-                   <div ng-repeat="foo in form.foo" class="row" id="data-rows">
+                   <div ng-repeat="foo in form.foo track by $index" class="row" id="data-rows">
                      <div class="table-row">
                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 td">
                          <p class="input">{{foo.name}}</p>
@@ -56,7 +56,7 @@
                          <input min="0" ng-model="foo.value" ng-change="changeValue(foo)" type="number" placeholder="Menge" class="input">
                        </div>
                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 td">
-                         <p class="input dropdown">{{foo.unit}}</p>
+                         <p class="input">{{foo.unit}}</p>
                        </div>
                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 td">
                          <input ng-click="remove(foo)" type="button" value="-" class="input button del" tabindex="-1">
@@ -67,27 +67,29 @@
                </div>
                <div class="row">
                  <div class="add-data">
-                   <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                     <input ng-model="new.name" type="text" class="input " placeholder="Zutat">
-                   </div>
-                   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                     <input ng-model="new.value" min="0" type="number" class="input" placeholder="Menge">
-                   </div>
-                   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                     <select ng-model="new.unit" class="input">
-                       <option value="Gramm">Gramm</option>
-                       <option value="Kilogramm">Kilogramm</option>
-                       <option value="Milliliter">Milliliter</option>
-                       <option value="Liter">Liter</option>
-                       <option value="Stück">Stück</option>
-                       <option value="Esslöffel">Esslöffel</option>
-                       <option value="Teelöffel">Teelöffel</option>
-                       <option value="Becher">Becher</option>
-                     </select>
-                   </div>
-                   <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                     <input ng-click="addIngredient()" value="+" type="submit" class="input button add" tabindex="-1">
-                   </div>
+                   <form>
+                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 td">
+                       <input ng-model="new.name" type="text" class="input " placeholder="Zutat">
+                     </div>
+                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 td">
+                       <input ng-model="new.value" min="0" type="number" class="input" placeholder="Menge">
+                     </div>
+                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 td">
+                       <select ng-model="new.unit" class="input">
+                         <option value="Gramm">Gramm</option>
+                         <option value="Kilogramm">Kilogramm</option>
+                         <option value="Milliliter">Milliliter</option>
+                         <option value="Liter">Liter</option>
+                         <option value="Stück">Stück</option>
+                         <option value="Esslöffel">Esslöffel</option>
+                         <option value="Teelöffel">Teelöffel</option>
+                         <option value="Becher">Becher</option>
+                       </select>
+                     </div>
+                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 td">
+                       <input ng-click="addIngredient()" value="+" type="submit" class="input button add" tabindex="-1">
+                     </div>
+                   </form>
                  </div>
                </div>
              </div>
