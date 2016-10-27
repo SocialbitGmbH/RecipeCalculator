@@ -69,11 +69,12 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
   $scope.changeValue = function (input) {   // Value X changed
 
-    if (input.name !== undefined && input.name !== "") {
-      console.log("Changed");
-      $scope.factor = input.value / input.startValue;
-      $scope.updateValues();               // Update values
-    }
+    if (input.value <= 0 || input.value == undefined) input.value = 1;
+
+    console.log("Changed");
+    $scope.factor = input.value / input.startValue;
+    $scope.updateValues();               // Update values
+
   };
 
   $scope.remove = function (delFoo) {     // Remove one ingredient
