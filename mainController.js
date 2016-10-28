@@ -8,6 +8,7 @@ rezeptrechner.controller("mainController", ['$scope', '$http', function($scope, 
 const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(a){var c,d,e,f,g,h,i,b="",j=0;for(a=Base64._utf8_encode(a);j<a.length;)c=a.charCodeAt(j++),d=a.charCodeAt(j++),e=a.charCodeAt(j++),f=c>>2,g=(3&c)<<4|d>>4,h=(15&d)<<2|e>>6,i=63&e,isNaN(d)?h=i=64:isNaN(e)&&(i=64),b=b+this._keyStr.charAt(f)+this._keyStr.charAt(g)+this._keyStr.charAt(h)+this._keyStr.charAt(i);return b},decode:function(a){var c,d,e,f,g,h,i,b="",j=0;for(a=a.replace(/[^A-Za-z0-9\+\/\=]/g,"");j<a.length;)f=this._keyStr.indexOf(a.charAt(j++)),g=this._keyStr.indexOf(a.charAt(j++)),h=this._keyStr.indexOf(a.charAt(j++)),i=this._keyStr.indexOf(a.charAt(j++)),c=f<<2|g>>4,d=(15&g)<<4|h>>2,e=(3&h)<<6|i,b+=String.fromCharCode(c),64!=h&&(b+=String.fromCharCode(d)),64!=i&&(b+=String.fromCharCode(e));return b=Base64._utf8_decode(b)},_utf8_encode:function(a){a=a.replace(/\r\n/g,"\n");for(var b="",c=0;c<a.length;c++){var d=a.charCodeAt(c);d<128?b+=String.fromCharCode(d):d>127&&d<2048?(b+=String.fromCharCode(d>>6|192),b+=String.fromCharCode(63&d|128)):(b+=String.fromCharCode(d>>12|224),b+=String.fromCharCode(d>>6&63|128),b+=String.fromCharCode(63&d|128))}return b},_utf8_decode:function(a){for(var b="",c=0,d=0,f=0;c<a.length;)d=a.charCodeAt(c),d<128?(b+=String.fromCharCode(d),c++):d>191&&d<224?(f=a.charCodeAt(c+1),b+=String.fromCharCode((31&d)<<6|63&f),c+=2):(f=a.charCodeAt(c+1),c3=a.charCodeAt(c+2),b+=String.fromCharCode((15&d)<<12|(63&f)<<6|63&c3),c+=3);return b}};
 
   $scope.domain = "localhost";
+  $scope.msgbox = "";
 
   $scope.new = {
     name : "",
@@ -39,11 +40,34 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
       return str.replace(/-/g, '+').replace(/_/g, '/');
   }
 
+  function showInfo (text, timeout) {
+
+    var time = text.length / 15;
+    if (time < 1.5) time = 1.5;
+    if (timeout === false || timeout === undefined) time = 30;
+    time *= 10;
+    $scope.msgbox = text;
+
+    document.getElementById("message-container").className = "visible";
+    setTimeout(function() {
+
+      var counter = 0;
+      document.getElementById("msg").focus();
+      var intervalID = setInterval(function() {
+        counter++;
+        if ((document.getElementById("msg") != document.activeElement) || (counter > time)) {
+          document.getElementById("message-container").className = "";
+          clearInterval(intervalID);
+        }
+      }, 100);
+    }, 100);
+  }
+
   function encodeData (data) {
     try {
       return encodeURL(Base64.encode(JSON.stringify(data)));
     } catch (e) {
-      alert("Fehler beim Codieren..");
+      showInfo("Fehler beim Codieren..", true);
       return false;
     }
   }
@@ -53,11 +77,10 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
       data = Base64.decode(decodeUrl(data));
       return JSON.parse(data.substring(0, data.length - 1));
     } catch (e) {
-      alert("Fehler beim Decodieren..")
+      showInfo("Fehler beim Decodieren..", true);
       return false;
     }
   }
-
 
   $scope.addIngredient = function () {    // Adds a new Ingredient to the table
 
@@ -77,9 +100,9 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
       $scope.updateValues();            // Update values to match current factor
 
     } else if (value <= 0) {            // Value is too small
-      alert(unescape("Die eingestellt Menge ist zu klein. Bitte erh%F6hen Sie ihn."));
+      showInfo("Die eingestellte Menge ist zu klein. Bitte erhöhen Sie diese.", true);
     } else {                            // Not all fields filled
-      alert(unescape("Alle Felder m%FCssen ausgef%FCllt sein."));
+      showInfo("Alle Felder müssen ausgefüllt sein.", true);
     }
   };
 
@@ -131,7 +154,7 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
         window.open("http://"+$scope.domain+"/#"+data);
       }
     } else {
-      alert("Nichts zum Teilen :/");
+      showInfo("Nichts zum Teilen :/", true);
     }
   }
 

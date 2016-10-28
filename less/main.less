@@ -139,6 +139,55 @@ textarea {
   padding:7px;
 }
 
+#message-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.45);
+
+  transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* explorer 10 */
+  -webkit-transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* chrome & safari */
+  -moz-transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* firefox */
+  -o-transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* opera */
+}
+
+.visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.message-box {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+  height: 50%;
+  line-height: 50%;
+  width: 60%;
+  background-color: @lightGrey;
+  border: solid 2px @darkWhite;
+  border-radius: 5px;
+
+  padding: 10px;
+
+  span {
+    display: inline-block;
+    line-height: 20px;
+    line-height: 5vw;
+    text-align:center;
+    font-size:20px;
+    font-size:5vw;
+  }
+}
+
 //----<<< Input + Buttons >>>----\\
 
 .add {
