@@ -30,13 +30,32 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
 //----<<< Functions >>>----\\
 
-  function encodeURL(str){
+  function encodeURL (str) {
       return str.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
   }
 
-  function decodeUrl(str){
+  function decodeUrl (str) {
       str = (str + '===').slice(0, str.length + (str.length % 4));
       return str.replace(/-/g, '+').replace(/_/g, '/');
+  }
+
+  function encodeData (data) {
+    try {
+      return encodeURL(Base64.encode(JSON.stringify(data)));
+    } catch (e) {
+      alert("Fehler beim Codieren..");
+      return false;
+    }
+  }
+
+  function decodeData (data) {
+    try {
+      data = Base64.decode(decodeUrl(data));
+      return JSON.parse(data.substring(0, data.length - 1));
+    } catch (e) {
+      alert("Fehler beim Decodieren..")
+      return false;
+    }
   }
 
 
@@ -106,27 +125,52 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
         'source' : $scope.recipe.source,
         'data'   : $scope.form.foo
       };
-      var data = encodeURL(Base64.encode(JSON.stringify(dataArray)));
-      window.open("http://"+$scope.domain+"/#"+data);
+      var data = encodeData(dataArray);
+
+      if (data !== false) {
+        window.open("http://"+$scope.domain+"/#"+data);
+      }
     } else {
       alert("Nichts zum Teilen :/");
     }
   }
 
+//----<<< Hash'n'stuff >>>----\\
+
   if (window.location.hash !== "") {
-    console.log("Shared Data");
-    var data = Base64.decode(decodeUrl(window.location.hash));
-    dataAll = JSON.parse(data.substring(0, data.length - 1));
-    $scope.recipe.name = dataAll["name"];
-    $scope.recipe.text = dataAll["text"];
-    if (dataAll["source"] !== "") {
-      document.getElementById("source").readOnly = true;
-      document.getElementById("source-a").setAttribute("target", "_blank");
-      $scope.recipe.source     = dataAll["source"];
-      $scope.recipe.realSource = dataAll["source"];
-    }
-    for (var x of dataAll["data"]) {
-      $scope.form.foo.push(x);
+    console.log("Hash found");
+
+    var hash = window.location.hash;
+    hash     = hash.split("=");
+    if (Array.isArray(hash)) {
+      var type = hash[0];
+      var data = hash[1];
+
+      if (type === "share") {     // Shared
+
+        var dataAll = decodeData(data);
+
+        if (dataAll !== false) {
+          $scope.recipe.name = dataAll["name"];
+          $scope.recipe.text = dataAll["text"];
+
+          if (dataAll["source"] !== "") {
+            document.getElementById("source").readOnly = true;
+            document.getElementById("source-a").setAttribute("target", "_blank");
+            $scope.recipe.source     = dataAll["source"];
+            $scope.recipe.realSource = dataAll["source"];
+          }
+          for (var x of dataAll["data"]) {
+            $scope.form.foo.push(x);
+          }
+        }
+      } else if (type === "cook") {     // Cooking
+
+      }
+    } else if (hash === "about") {
+
+    } else if (hash === "impressum") {  // Impressum
+
     }
   }
 
