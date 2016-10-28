@@ -24,6 +24,11 @@
              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                <button ng-click="share()" class="input">Share</button>
              </div>
+             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 ol-xs-8 col-sm-8 col-md-8 col-lg-8">
+               <a href="{{recipe.realSource}}" id="source-a">
+                 <input id="source" type="text" ng-model="recipe.source" placeholder="Quelle" class="input source">
+               </a>
+             </div>
              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top:5px;">
                <div class="row th">
                  <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 td">
