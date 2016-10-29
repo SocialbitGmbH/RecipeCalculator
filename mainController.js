@@ -74,8 +74,7 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
   function decodeData (data) {
     try {
-      data = Base64.decode(decodeUrl(data));
-      return JSON.parse(data.substring(0, data.length - 1));
+      return JSON.parse(Base64.decode(decodeUrl(data)));
     } catch (e) {
       showInfo("Fehler beim Decodieren..", true);
       return false;
@@ -165,8 +164,9 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
     var hash = window.location.hash;
     hash     = hash.split("=");
+
     if (Array.isArray(hash)) {
-      var type = hash[0];
+      var type = hash[0].replace("#", "");
       var data = hash[1];
 
       if (type === "share") {     // Shared
