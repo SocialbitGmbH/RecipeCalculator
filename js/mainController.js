@@ -9,6 +9,7 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
   $scope.domain = "localhost";
   $scope.msgbox = "";
+  $scope.view = "list";
 
   $scope.new = {
     name : "",
@@ -91,6 +92,57 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
     }
   }
 
+  function showCook (show) {
+    var container = document.getElementById("left-container");
+    var height    = container.clientHeight;
+    var counter = 0;
+    var num = 0;
+    var now = 0;
+    if (show) {
+      var intervalID = setInterval(function() {
+        if (num*2 <= height) {
+          num = Math.pow(1.2, counter/3) + counter/2;
+        } else {
+          if (now === 0) now = num / (counter/3) + counter/2;
+          num = num + now;
+        }
+
+        if (num >= (height-2)) {
+          changeStyle(container, "margin-top: -"+(height+2)+"px;", /margin-top: -\d+px;/);
+          document.getElementById("cookbtn").innerHTML = '<i class="material-icons md-18 icon">&#xE5CD;</i>Zurück';
+          document.getElementById("recipe-text").readOnly = true;
+          clearInterval(intervalID);
+        } else {
+          changeStyle(container, "margin-top: -"+num+"px;", /margin-top: -\d+px;/);
+        }
+        counter++;
+      }, 6);
+    } else {
+      num = height;
+      var intervalID = setInterval(function() {
+        if (num >= height/4) {
+          num = height - (Math.pow(1.2, counter/3) + counter/2);
+        } else {
+          if (now === 0) now = num / (counter/3) + counter/2;
+          num = num - now;
+        }
+
+        if (num <= 0) {
+          changeStyle(container, "margin-top: 0px;", /margin-top: -\d+px;/);
+          document.getElementById("cookbtn").innerHTML = '<i class="material-icons md-18 icon">&#xE5CA;</i>Jetzt kochen';
+          document.getElementById("recipe-text").readOnly = false;
+          clearInterval(intervalID);
+        } else {
+          changeStyle(container, "margin-top: -"+num+"px;", /margin-top: -\d+px;/);
+        }
+        counter++;
+      }, 6);
+    }
+  }
+
+
+//----<<< Eventhandlers >>>----\\
+
   $scope.addIngredient = function () {    // Adds a new Ingredient to the table
 
     var name  = $scope.new.name;
@@ -164,6 +216,16 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
       }
     } else {
       showInfo("Nichts zum Teilen :/", true);
+    }
+  }
+
+  $scope.cook = function () {
+    if ($scope.view !== "cook") {
+      $scope.view = "cook";
+      showCook(true);
+    } else {
+      $scope.view = "list";
+      showCook(false);
     }
   }
 
