@@ -98,12 +98,29 @@ textarea {
 
 //----<<< Container >>>----\\
 
-.main-container {
+#main-container {
   height: 100%;
   width: 100%;
   border: solid 2px @lightGrey;
   overflow-y: hidden;
   overflow-x: hidden;
+}
+
+#secondary-layer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  opacity: 0;
+  visibility: hidden;
+  background-color: @darkWhite;
+
+  transition: all 0.35s ease-in; /* explorer 10 */
+  -webkit-transition: all 0.35s ease-in; /* chrome & safari */
+  -moz-transition: all 0.35s ease-in; /* firefox */
+  -o-transition: all 0.35s ease-in; /* opera */
 }
 
 .recipe-container {
@@ -150,10 +167,10 @@ textarea {
   visibility: hidden;
   background: rgba(0, 0, 0, 0.45);
 
-  transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* explorer 10 */
-  -webkit-transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* chrome & safari */
-  -moz-transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* firefox */
-  -o-transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); /* opera */
+  transition: all 0.35s ease-in; /* explorer 10 */
+  -webkit-transition: all 0.35s ease-in; /* chrome & safari */
+  -moz-transition: all 0.35s ease-in; /* firefox */
+  -o-transition: all 0.35s ease-in; /* opera */
 }
 
 .visible {

@@ -63,6 +63,16 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
     }, 100);
   }
 
+  function secondLayer (show) {
+    var layer = document.getElementById("secondary-layer");
+
+    if (show === true) {
+      layer.className = "visible";
+    } else {
+      layer.className = "";
+    }
+  }
+
   function encodeData (data) {
     try {
       return encodeURL(Base64.encode(JSON.stringify(data)));
@@ -163,37 +173,34 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
     console.log("Hash found");
 
     var hash = window.location.hash;
-    hash     = hash.split("=");
+    hash     = hash.replace("#", "").split("=");
+    var type = hash[0];
+    var data = hash[1];
 
-    if (Array.isArray(hash)) {
-      var type = hash[0].replace("#", "");
-      var data = hash[1];
+    if (type === "share") {     // Shared
 
-      if (type === "share") {     // Shared
+      var dataAll = decodeData(data);
 
-        var dataAll = decodeData(data);
+      if (dataAll !== false) {
+        $scope.recipe.name = dataAll["name"];
+        $scope.recipe.text = dataAll["text"];
 
-        if (dataAll !== false) {
-          $scope.recipe.name = dataAll["name"];
-          $scope.recipe.text = dataAll["text"];
-
-          if (dataAll["source"] !== "") {
-            document.getElementById("source").readOnly = true;
-            document.getElementById("source-a").setAttribute("target", "_blank");
-            $scope.recipe.source     = dataAll["source"];
-            $scope.recipe.realSource = dataAll["source"];
-          }
-          for (var x of dataAll["data"]) {
-            $scope.form.foo.push(x);
-          }
+        if (dataAll["source"] !== "") {
+          document.getElementById("source").readOnly = true;
+          document.getElementById("source-a").setAttribute("target", "_blank");
+          $scope.recipe.source     = dataAll["source"];
+          $scope.recipe.realSource = dataAll["source"];
         }
-      } else if (type === "cook") {     // Cooking
-
+        for (var x of dataAll["data"]) {
+          $scope.form.foo.push(x);
+        }
       }
-    } else if (hash === "about") {
+    } else if (type === "cook") {     // Cooking
 
-    } else if (hash === "impressum") {  // Impressum
-
+    } else if (type === "about") {
+      secondLayer(true);
+    } else if (type === "impressum") {  // Impressum
+      secondLayer(true);
     }
   }
 
