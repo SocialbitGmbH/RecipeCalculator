@@ -45,8 +45,9 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
     var time = text.length / 15;
     if (time < 1.5) time = 1.5;
-    if (timeout === false || timeout === undefined) time = 30;
+    if (timeout === undefined) time = 30;
     time *= 10;
+    if (timeout === false) time = -1;
     $scope.msgbox = text;
 
     document.getElementById("message-container").className = "visible";
@@ -56,7 +57,7 @@ const Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
       document.getElementById("msg").focus();
       var intervalID = setInterval(function() {
         counter++;
-        if ((document.getElementById("msg") != document.activeElement) || (counter > time)) {
+        if ((document.getElementById("msg") != document.activeElement) || ((counter > time) && (time > 0))) {
           document.getElementById("message-container").className = "";
           clearInterval(intervalID);
         }
